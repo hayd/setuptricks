@@ -1,42 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from ast import parse
-import os
 from setuptools import setup
-from sys import version_info
+import setuptricks
 
 
 NAME = 'setuptricks'
-
-
-def version():
-    """Return version string."""
-    with open(os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                           'setuptricks',
-                           '__init__.py')) as input_file:
-        for line in input_file:
-            if line.startswith('__version__'):
-                return parse(line).body[0].value.s
-
-
-def readme():
-    try:
-        import pypandoc
-        return pypandoc.convert('README.md', 'rst', format='md')
-    except (IOError, ImportError):
-        with open('README.md') as f:
-            return f.read()
-
 INSTALL_REQUIRES = (
     []
 )
 
 setup(
     name=NAME,
-    version=version(),
-    description="setuptricks, useful utilities for setup.py",
-    long_description=readme(),
+    version=setuptricks.version(NAME),
+    description=setuptricks.description(NAME)
+    long_description=setuptricks.md_readme_as_rst(),
     license='MIT License',
     author='Andy Hayden',
     author_email='andyhayden1@gmail.com',
@@ -59,6 +37,6 @@ setup(
     ],
     keywords='setup',
     install_requires=INSTALL_REQUIRES,
-    packages=['setuptricks'],
+    packages=setuptricks.get_packages(NAME),
     test_suite='tests',
 )
