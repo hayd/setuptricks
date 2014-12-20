@@ -2,19 +2,20 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup
-import setuptricks
+from setuptricks import Package, md_readme_as_rst
 
 
-NAME = 'setuptricks'
 INSTALL_REQUIRES = (
     []
 )
 
+s = Package('setuptricks')
+s.before_setup()
 setup(
-    name=NAME,
-    version=setuptricks.version(NAME),
-    description=setuptricks.description(NAME)
-    long_description=setuptricks.md_readme_as_rst(),
+    name=s.package,
+    version=s.version,
+    description=s.description,
+    long_description=md_readme_as_rst(),
     license='MIT License',
     author='Andy Hayden',
     author_email='andyhayden1@gmail.com',
@@ -37,6 +38,6 @@ setup(
     ],
     keywords='setup',
     install_requires=INSTALL_REQUIRES,
-    packages=setuptricks.get_packages(NAME),
+    packages=s.packages,
     test_suite='tests',
 )
